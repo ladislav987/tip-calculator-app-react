@@ -1,6 +1,6 @@
 # Tip calculator app
 
-![Design preview](./images/tip-calculator-app-preview.jpg)
+![Design preview](./src/images/tip-calculator-app-preview.jpg)
 
 ### Live verzia [Tip calculator app]()
 
