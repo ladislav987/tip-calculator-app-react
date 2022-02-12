@@ -22,23 +22,23 @@ function App() {
   const [amountOutput, setAmountOutput] = useState(0);
   const [totalAmountOutput, setTotalAmountOutput] = useState();
 
-
   useEffect(() => {
-    if (people > 0) {
-      count(percent, bill, people);
+    function count(percent, bill, people) {
+
+      let tipAmountOutputBeforFormat = bill / percent / people;
+      let tipAmountOutput = formatUSD(tipAmountOutputBeforFormat);
+      let totalAmountOutput = formatUSD(
+        bill / people + tipAmountOutputBeforFormat
+      );
+
+      setAmountOutput(tipAmountOutput);
+      setTotalAmountOutput(totalAmountOutput);
     }
+
+
+      count(percent, bill, people);
+
   }, [people, bill, percent, customPercent]);
-
-  const count = (percent, bill, people) => {
-    let tipAmountOutputBeforFormat = bill / percent / people;
-    let tipAmountOutput = formatUSD(tipAmountOutputBeforFormat);
-    let totalAmountOutput = formatUSD(
-      bill / people + tipAmountOutputBeforFormat
-    );
-
-    setAmountOutput(tipAmountOutput);
-    setTotalAmountOutput(totalAmountOutput);
-  }
 
   const formatUSD = (numbers) => {
     let number = new Intl.NumberFormat("en-US", {
@@ -47,17 +47,17 @@ function App() {
       minimumFractionDigits: 2,
     }).format(numbers);
     return number;
-  }
+  };
 
   const handleBillChange = (data) => {
     setBill(data);
   };
 
-  const handleTipsChange = (data,id) => {
+  const handleTipsChange = (data, id) => {
     setPercent(data);
     activeClass(id);
   };
-  const handleCustomTipsChange = (data,id) => {
+  const handleCustomTipsChange = (data, id) => {
     setCustomPercent(data);
     setPercent(100 / data);
 
@@ -72,7 +72,7 @@ function App() {
     setBill("");
     setPercent(1);
     setCustomPercent("");
-  }
+  };
 
   const activeClass = (id) => {
     let elementDelete = document.querySelectorAll(".selectedButton");
@@ -85,7 +85,7 @@ function App() {
 
     let elementAdd = document.getElementById(id);
     elementAdd.classList.add("selectedButton");
-  }
+  };
 
   return (
     <div className="App">
