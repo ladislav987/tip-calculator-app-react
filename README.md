@@ -29,3 +29,4 @@
 ### **function addClass(id)**
 
 - nastavuje tlačidlám selected class
+
