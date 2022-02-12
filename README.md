@@ -2,7 +2,7 @@
 
 ![Design preview](./src/images/tip-calculator-app-preview.jpg)
 
-### Live verzia [Tip calculator app]()
+### Live verzia [Tip calculator app](https://lc-tips-calculator-react.netlify.app/)
 
 ### Ďalšie projekty: [GitHub](https://github.com/ladislav987?tab=stars)
 
@@ -29,4 +29,3 @@
 ### **function addClass(id)**
 
 - nastavuje tlačidlám selected class
-
