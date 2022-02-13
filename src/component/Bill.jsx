@@ -1,10 +1,9 @@
 import React from "react";
 
-const Bill = (props) => {
-  const {bill} = props;
-  const handleBillInput = (event) => {
-    props.onBillChange(event.target.value);
+const Bill = ({ bill, onBillChange }) => {
 
+  const handleBillInput = (event) => {
+    onBillChange(event.target.value);
   };
   return (
     <>
