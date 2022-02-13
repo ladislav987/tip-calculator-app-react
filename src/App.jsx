@@ -1,44 +1,60 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useReducer } from "react";
 
 import "./App.scss";
 
+import "./scss/style.scss";
 import "./scss/buttons.scss";
 import "./scss/general.scss";
 import "./scss/input.scss";
 import "./scss/mediaQuery.scss";
-import "./scss/style.scss";
 
 import BillCom from "./component/Bill";
 import Tips from "./component/Tips";
 import People from "./component/People";
 import Result from "./component/Result";
 
-function App() {
-  const [bill, setBill] = useState("");
-  const [percent, setPercent] = useState(1);
-  const [customPercent, setCustomPercent] = useState("");
-  const [people, setPeople] = useState(1);
+import reducer from "./component/Reducer";
 
-  const [amountOutput, setAmountOutput] = useState(0);
-  const [totalAmountOutput, setTotalAmountOutput] = useState();
+const defaultState = {
+  bill: "",
+  percent: 1,
+  customPercent: "",
+  people: 1,
+  amountOutput: 0,
+  totalAmountPersonOutput: 0,
+  totalAmountAllOutput: 0,
+};
+
+function App() {
+  const [state, dispatch] = useReducer(reducer, defaultState);
 
   useEffect(() => {
     function count(percent, bill, people) {
-
-      let tipAmountOutputBeforFormat = bill / percent / people;
-      let tipAmountOutput = formatUSD(tipAmountOutputBeforFormat);
-      let totalAmountOutput = formatUSD(
-        bill / people + tipAmountOutputBeforFormat
+      let all = formatUSD(parseInt(bill) + parseInt(bill / percent));
+      let tipAmountOutput = formatUSD(bill / percent / people);
+      let totalAmountPersonOutput = formatUSD(
+        bill / people + bill / percent / people
       );
 
-      setAmountOutput(tipAmountOutput);
-      setTotalAmountOutput(totalAmountOutput);
+      dispatch({
+        type: "SET_AMOUNT_OUTPUT",
+        payload: tipAmountOutput,
+      });
+      dispatch({
+        type: "SET_TOTAL_AMOUNT_PERSON_OUTPUT",
+        payload: totalAmountPersonOutput,
+      });
+
+      if (all !== "$NaN") {
+        dispatch({
+          type: "SET_TOTAL_AMOUNT_OUTPUT",
+          payload: all,
+        });
+      }
     }
 
-
-      count(percent, bill, people);
-
-  }, [people, bill, percent, customPercent]);
+    count(state.percent, state.bill, state.people);
+  }, [state.people, state.bill, state.percent, state.customPercent]);
 
   const formatUSD = (numbers) => {
     let number = new Intl.NumberFormat("en-US", {
@@ -50,28 +66,27 @@ function App() {
   };
 
   const handleBillChange = (data) => {
-    setBill(data);
+    dispatch({ type: "SET_BILL_INPUT", payload: data });
   };
 
   const handleTipsChange = (data, id) => {
-    setPercent(data);
+    dispatch({ type: "SET_TIP_INPUT", payload: data });
+
     activeClass(id);
   };
+
   const handleCustomTipsChange = (data, id) => {
-    setCustomPercent(data);
-    setPercent(100 / data);
+    dispatch({ type: "SET_TIP_INPUT", payload: 100 / data });
+    dispatch({ type: "SET_CUSTOM_TIP_INPUT", payload: data });
 
     activeClass(id);
   };
   const handlePeopleChange = (data) => {
-    setPeople(data);
+    dispatch({ type: "SET_PEOPLE_INPUT", payload: data });
   };
 
   const handleReset = () => {
-    setPeople(1);
-    setBill("");
-    setPercent(1);
-    setCustomPercent("");
+    dispatch({ type: "RESET" });
   };
 
   const activeClass = (id) => {
@@ -97,23 +112,24 @@ function App() {
       <main>
         <div className="container_app">
           <div className="container_app_left">
-            <BillCom onBillChange={handleBillChange} bill={bill} />
+            <BillCom onBillChange={handleBillChange} bill={state.bill} />
             <div id="button_container">
               <Tips
                 onTipsClick={handleTipsChange}
                 onCustomTipsChange={handleCustomTipsChange}
-                percent={percent}
-                customPercent={customPercent}
+                percent={state.percent}
+                customPercent={state.customPercent}
               />
             </div>
-            <People onPeopleChange={handlePeopleChange} people={people} />
+            <People onPeopleChange={handlePeopleChange} people={state.people} />
           </div>
 
           <div className="container_app_right">
             <Result
               onResetClick={handleReset}
-              amountOutput={amountOutput}
-              totalAmountOutput={totalAmountOutput}
+              amountOutput={state.amountOutput}
+              totalAmountPersonOutput={state.totalAmountPersonOutput}
+              totalAmountAllOutput={state.totalAmountAllOutput}
             />
           </div>
         </div>
