@@ -1,11 +1,14 @@
 import React from "react";
 
-const Result = (props) => {
-  const {amountOutput,totalAmountOutput } = props;
-
-  const handlerReset = () =>{
-    props.onResetClick();
-  }
+const Result = ({
+  amountOutput,
+  totalAmountPersonOutput,
+  totalAmountAllOutput,
+  onResetClick,
+}) => {
+  const handlerReset = () => {
+    onResetClick();
+  };
   return (
     <>
       <div className="grid">
@@ -20,8 +23,14 @@ const Result = (props) => {
         <p>
           Total <br />/ person
         </p>
-        <p id="totalAmountOutput" className="output">
-          {totalAmountOutput}
+        <p id="totalAmountPersonOutput" className="output">
+          {totalAmountPersonOutput}
+        </p>
+      </div>
+      <div className="grid">
+        <p>Total Amount</p>
+        <p id="totalAmountAllOutput" className="output">
+          {totalAmountAllOutput}
         </p>
       </div>
       <button onClick={handlerReset} className="resetBtn">
