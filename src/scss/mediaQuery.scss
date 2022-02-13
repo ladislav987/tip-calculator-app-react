@@ -22,11 +22,15 @@
     }
 }
 @media (max-width: 680px) {
+    header{
+        margin: 20px 0 20px;
+    }
     .container_app {
         display: flex !important;
         max-width: 84% !important;
         flex-direction: column;
         gap: 20px;
+
     }
 }
 
