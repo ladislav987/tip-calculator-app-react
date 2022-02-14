@@ -1,4 +1,7 @@
-header:hover {
+header:hover,
+header:active,
+header:focus
+ {
     #upper {
         animation-duration: 1.5s;
         animation-name: slideLeft;
