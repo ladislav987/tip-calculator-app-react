@@ -6,6 +6,7 @@ import "./scss/style.scss";
 import "./scss/buttons.scss";
 import "./scss/general.scss";
 import "./scss/input.scss";
+import "./scss/header.scss";
 import "./scss/mediaQuery.scss";
 
 import BillCom from "./component/Bill";
@@ -105,8 +106,8 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Spli</h1>
-        <h1>tter</h1>
+        <h1 id="upper">Spli</h1>
+        <h1 id="lower">tter</h1>
       </header>
 
       <main>

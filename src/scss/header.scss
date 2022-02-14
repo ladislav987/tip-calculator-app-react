@@ -1,0 +1,23 @@
+header:hover {
+    #upper {
+        animation-duration: 1.5s;
+        animation-name: slideLeft;
+    }
+
+    #lower{
+        animation-duration: 1.5s;
+        animation-name: slideRight;
+    }
+
+    @keyframes slideLeft {
+        0% { margin-right: 0.2%}
+        50% {margin-right: 4%}
+        100% {margin-right: 0.2%}
+    }
+    @keyframes slideRight {
+        0% { margin-left: 0.2%}
+        50% {margin-left: 4%}
+        100% {margin-left: 0.2%}
+    }
+}
+
